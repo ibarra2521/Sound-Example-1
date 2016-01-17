@@ -7,19 +7,22 @@
 //
 
 import UIKit
+import AudioToolbox
 
 class ViewController: UIViewController {
 
+    private var mySound: SystemSoundID = 0
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        let soundURL = NSBundle.mainBundle().URLForResource("Submarine", withExtension: "aiff")
+        AudioServicesCreateSystemSoundID(soundURL! as CFURL, &mySound)
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
 
+    @IBAction func play() {
+        AudioServicesPlaySystemSound(mySound)
+    }
 
 }
 
